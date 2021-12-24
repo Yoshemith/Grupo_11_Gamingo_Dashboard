@@ -1,7 +1,24 @@
 import React from 'react';
+import { useState, useEffect, useRef} from 'react';
 import imagenFondo from '../assets/images/default-image.png';
 
 function MostValuedProductInDb(){
+    const [producto, setProducto] = useState([]);
+
+    useEffect(()=>{
+		// Petición Asincrónica al montarse el componente
+		const endpoint = '/api/products/mostrated';
+		fetch(endpoint)
+		.then(response =>{
+			return response.json()
+		})
+		.then(productoMR =>{
+            //console.log(productoMR);	
+			setProducto(productoMR.data);
+		})
+		.catch(error => console.log(error))	
+	})
+    
     return(
         <div className="col-lg-6 mb-4">
             <div className="card shadow mb-4">
@@ -12,9 +29,17 @@ function MostValuedProductInDb(){
                     <div className="text-center">
                         <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: 15 +'rem'}} src={imagenFondo} alt=" Star Wars - Mandalorian "/>
                     </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, consequatur explicabo officia inventore libero veritatis iure voluptate reiciendis a magnam, vitae, aperiam voluptatum non corporis quae dolorem culpa citationem ratione aperiam voluptatum non corporis ratione aperiam voluptatum quae dolorem culpa ratione aperiam voluptatum?</p>
-                    <a className="btn btn-danger" target="_blank" rel="nofollow" href="/">View movie detail</a>
-                </div>
+                        {
+                            <p>{producto.description}</p>
+                            //producto.map( ( productom) => {
+                                //<p>productom.description</p>
+                                //this code section is commented because it doesn't work properly, need to find out why...
+                            //})
+                        }
+                        {
+                    <a className="btn btn-danger" target="_blank" rel="nofollow" href={'http://localhost:3001/products/' + producto.id_product}>Ver detalles</a>
+                        }
+                    </div>
             </div>
         </div>
     )

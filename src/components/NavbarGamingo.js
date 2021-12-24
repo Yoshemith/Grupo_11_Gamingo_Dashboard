@@ -53,7 +53,7 @@ function NavbarGamingo(){
           >
             Mas 
           </DropdownToggle>
-          <DropdownMenu right>
+          <DropdownMenu end>
             <DropdownItem>
               Opcion 1
             </DropdownItem>
